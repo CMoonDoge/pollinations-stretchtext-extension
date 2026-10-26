@@ -1,0 +1,17 @@
+# Build output / packaging
+*.zip
+dist/
+build/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Local secrets (never commit a real key)
+*.key
+.dev.vars
+.env
+.env.*

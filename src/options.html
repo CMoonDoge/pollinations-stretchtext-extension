@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StretchText — Settings</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { margin: 0; font: 14px/1.5 ui-sans-serif, system-ui, sans-serif; background: #f3f4f6; color: #111; }
+    main { max-width: 640px; margin: 32px auto; padding: 0 16px; }
+    h1 { font-size: 20px; margin: 0 0 4px; }
+    .sub { color: #6b7280; margin: 0 0 20px; font-size: 13px; }
+    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+    .card h2 { font-size: 14px; margin: 0 0 12px; text-transform: uppercase; letter-spacing: .04em; color: #6b7280; }
+    label { display: block; font-weight: 600; margin: 12px 0 4px; font-size: 13px; }
+    input[type="text"], input[type="number"], select {
+      width: 100%; padding: 9px 10px; border: 1px solid #d1d5db; border-radius: 8px; font: inherit; background: #fff; color: inherit;
+    }
+    input[type="range"] { width: 100%; }
+    .hint { font-size: 12px; color: #6b7280; margin-top: 4px; }
+    .row { display: flex; align-items: center; gap: 12px; }
+    .row.between { justify-content: space-between; }
+    button { font: inherit; padding: 9px 14px; border-radius: 8px; border: 1px solid #d1d5db; background: #f9fafb; cursor: pointer; }
+    button.primary { background: #5b21b6; border-color: #5b21b6; color: #fff; font-weight: 600; }
+    button.danger { color: #b91c1c; border-color: #fecaca; background: #fff5f5; }
+    .status { font-size: 13px; }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; margin-right: 6px; vertical-align: middle; }
+    .dot.on { background: #10b981; }
+    code.big { font-size: 18px; letter-spacing: 2px; background: #f3f4f6; padding: 6px 10px; border-radius: 8px; display: inline-block; }
+    .device-box { display: none; margin-top: 12px; padding: 14px; border: 1px dashed #c4b5fd; border-radius: 10px; background: #faf5ff; }
+    .device-box.show { display: block; }
+    footer { text-align: center; color: #9ca3af; font-size: 12px; margin: 24px 0; }
+    a { color: #5b21b6; }
+    .saved { color: #059669; font-size: 12px; opacity: 0; transition: opacity .2s; }
+    .saved.show { opacity: 1; }
+    .lock { font-size: 12px; color: #6b7280; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>StretchText for the Web</h1>
+  <p class="sub">Turn any page into stretchtext. Readers pay with their own Pollen (BYOP) — this extension never pays for you.</p>
+
+  <section class="card">
+    <h2>Pollen connection</h2>
+    <div class="row between">
+      <span class="status"><span class="dot" id="dot"></span><span id="who">Checking…</span></span>
+      <div class="row">
+        <button class="primary" id="connect">Connect Pollen</button>
+        <button class="danger" id="disconnect" style="display:none">Disconnect</button>
+      </div>
+    </div>
+    <div class="device-box" id="deviceBox">
+      <p style="margin:0 0 8px">In the tab that just opened, sign in and approve. Or visit
+        <a id="verifyLink" target="_blank" rel="noopener">enter.pollinations.ai/device</a> and enter:</p>
+      <code class="big" id="userCode">--------</code>
+      <p class="hint" id="deviceHint">Waiting for approval…</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Settings</h2>
+    <label for="model">Text model</label>
+    <input type="text" id="model" placeholder="openai/gpt-5.4-nano" />
+    <p class="hint">Any text model id from <a href="https://gen.pollinations.ai/text/models" target="_blank" rel="noopener">gen.pollinations.ai/text/models</a>. Cheaper models stretch for less Pollen.</p>
+
+    <label for="appKey">App Key (pk_…) — optional attribution</label>
+    <input type="text" id="appKey" placeholder="pk_yourkey" />
+    <p class="hint">Shows the app name and author on the consent screen and credits developer earnings. Create one at <a href="https://enter.pollinations.ai/keys" target="_blank" rel="noopener">enter.pollinations.ai/keys</a> → Apps.</p>
+
+    <label for="fraction">Gist length: <span id="fractionVal">22%</span> of the paragraph</label>
+    <input type="range" id="fraction" min="0.08" max="0.5" step="0.01" />
+    <p class="hint">Lower = more aggressive stretchtext (reads less, expands more on demand).</p>
+
+    <label for="minWords">Only stretch paragraphs longer than (words)</label>
+    <input type="number" id="minWords" min="5" max="200" step="1" />
+
+    <div class="row" style="margin-top:14px">
+      <input type="checkbox" id="persistKey" />
+      <label for="persistKey" style="margin:0;font-weight:400">Remember my Pollen key across browser restarts</label>
+    </div>
+    <p class="lock">Default: the key lives in <code>chrome.storage.session</code> and is gone when the browser closes.</p>
+
+    <div class="row" style="margin-top:16px">
+      <button class="primary" id="save">Save settings</button>
+      <span class="saved" id="saved">Saved ✓</span>
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://pollinations.ai/?ref=badge" target="_blank" rel="noopener">Made with pollinations.ai</a> ·
+    Quest #17998 · <a href="https://github.com/pollinations/pollinations/issues/17998" target="_blank" rel="noopener">source</a>
+  </footer>
+</main>
+<script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "StretchText for the Web",
+  "version": "1.0.0",
+  "description": "Turn any web page into stretchtext: paragraphs arrive short, and a click grows them in place. Readers pay with their own Pollen (BYOP).",
+  "author": "Pollinations community",
+  "homepage_url": "https://github.com/pollinations/pollinations/issues/17998",
+  "minimum_chrome_version": "116",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "StretchText",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": [
+    "https://gen.pollinations.ai/*",
+    "https://enter.pollinations.ai/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "commands": {
+    "toggle-stretch": {
+      "suggested_key": { "default": "Alt+S" },
+      "description": "Toggle StretchText on this page"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/icon48.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+/* StretchText — isolated styles (pg-* namespace, shadow-free but reset). */
+
+.pg-ui,
+.pg-ui * {
+  box-sizing: border-box !important;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important;
+  line-height: 1.2 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+/* ---- control bubble (bottom-right) ---- */
+.pg-bubble {
+  position: fixed !important;
+  right: 16px !important;
+  bottom: 16px !important;
+  z-index: 2147483000 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 7px 11px !important;
+  margin: 0 !important;
+  border: 1px solid rgba(0, 0, 0, 0.18) !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  color: #111 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18) !important;
+  cursor: pointer !important;
+  opacity: 0.92 !important;
+  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease !important;
+}
+.pg-bubble:hover { opacity: 1 !important; }
+.pg-bubble.pg-on { background: #5b21b6 !important; color: #fff !important; border-color: #5b21b6 !important; }
+.pg-bubble .pg-logo { font-size: 14px !important; font-weight: 800 !important; }
+.pg-bubble .pg-hud { font-variant-numeric: tabular-nums !important; opacity: 0.85 !important; }
+
+/* ---- inline controls attached to a stretched block ---- */
+.pg-controls {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  margin-left: 6px !important;
+  vertical-align: baseline !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+}
+.pg-level {
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  color: #6d28d9 !important;
+  background: rgba(109, 40, 217, 0.10) !important;
+  border-radius: 4px !important;
+  padding: 1px 4px !important;
+}
+.pg-btn {
+  all: unset;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 17px !important;
+  height: 17px !important;
+  border-radius: 4px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  color: #5b21b6 !important;
+  background: rgba(109, 40, 217, 0.10) !important;
+  transition: background 0.12s ease !important;
+}
+.pg-btn:hover { background: rgba(109, 40, 217, 0.22) !important; }
+.pg-btn:disabled { opacity: 0.3 !important; cursor: default !important; }
+
+/* ---- block states ---- */
+.pg-stretched { transition: background-color 0.15s ease !important; }
+.pg-collapsed .pg-text { color: #1f2937 !important; }
+.pg-collapsed { background: linear-gradient(90deg, rgba(109, 40, 217, 0.05), transparent 60%) !important; }
+.pg-expanded .pg-text { animation: pg-fade 0.18s ease !important; }
+@keyframes pg-fade { from { opacity: 0.35; } to { opacity: 1; } }
+.pg-loading .pg-text { opacity: 0.6 !important; }
+
+/* ---- toast ---- */
+.pg-toast {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: 22px !important;
+  transform: translateX(-50%) translateY(12px) !important;
+  z-index: 2147483001 !important;
+  max-width: 60vw !important;
+  padding: 8px 14px !important;
+  border-radius: 8px !important;
+  background: #111827 !important;
+  color: #f9fafb !important;
+  font-size: 12px !important;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+.pg-toast.pg-show { opacity: 1 !important; transform: translateX(-50%) translateY(0) !important; }
